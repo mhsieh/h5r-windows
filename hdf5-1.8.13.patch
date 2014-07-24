@@ -1,0 +1,11 @@
+--- hdf5-1.8.13/src/H5.c	2014-05-05 19:13:01.000000000 -0700
++++ hdf5-1.8.13/src/H5.c	2014-07-23 21:01:55.094703100 -0700
+@@ -854,7 +854,7 @@
+  *-------------------------------------------------------------------------
+  */
+ BOOL WINAPI
+-DllMain(_In_ HINSTANCE hinstDLL, _In_ DWORD fdwReason, _In_ LPVOID lpvReserved)
++DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+ {
+     /* Don't add our function enter/leave macros since this function will be
+      * called before the library is initialized.
