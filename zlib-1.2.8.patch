@@ -1,0 +1,26 @@
+--- zlib-1.2.8/win32/Makefile.gcc	2012-05-02 20:17:59.000000000 -0700
++++ zlib-1.2.8/win32/Makefile.gcc	2014-07-23 20:19:05.789306500 -0700
+@@ -42,7 +42,7 @@
+ #LOC = -DDEBUG -g
+ 
+ PREFIX =
+-CC = $(PREFIX)gcc
++#CC = $(PREFIX)gcc
+ CFLAGS = $(LOC) -O3 -Wall
+ 
+ AS = $(CC)
+@@ -93,9 +93,11 @@
+ $(IMPLIB): $(SHAREDLIB)
+ 
+ $(SHAREDLIB): win32/zlib.def $(OBJS) $(OBJA) zlibrc.o
+-	$(CC) -shared -Wl,--out-implib,$(IMPLIB) $(LDFLAGS) \
+-	-o $@ win32/zlib.def $(OBJS) $(OBJA) zlibrc.o
+-	$(STRIP) $@
++	-if [ "$(SHARED_MODE)" = "1" ]; then \
++	    $(CC) -shared -Wl,--out-implib,$(IMPLIB) $(LDFLAGS) \
++	          -o $@ win32/zlib.def $(OBJS) $(OBJA) zlibrc.o; \
++	    $(STRIP) $@; \
++        fi
+ 
+ example.exe: example.o $(STATICLIB)
+ 	$(LD) $(LDFLAGS) -o $@ example.o $(STATICLIB)
