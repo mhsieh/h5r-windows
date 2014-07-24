@@ -3,6 +3,8 @@ RTOOLSURL = "http://cran.r-project.org/bin/windows/Rtools/Rtools31.exe"
 HDF5URL   = "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz"
 ZLIBURL   = "http://zlib.net/zlib-1.2.8.tar.gz"
 SZLIBURL  = "http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz"
+H5RURL    = "https://github.com/extemporaneousb/h5r/archive/master.zip"
+R-PBH5URL = "https://github.com/PacificBiosciences/R-pbh5/archive/master.zip"
 
 clean: x64clean i386clean
 i386clean:
