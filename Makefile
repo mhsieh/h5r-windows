@@ -9,6 +9,22 @@ R-PBH5URL = "https://github.com/PacificBiosciences/R-pbh5/archive/master.zip"
 nothing:
 	@echo nothing
 
+fetchRpbh5:
+	$(MAKE) R-pbh5
+R-pbh5:
+	wget --no-check-certificate $(R-PBH5URL)
+	unzip master
+	rm -rf R-pbh5 master
+	mv R-pbh5-master R-pbh5
+
+fetchh5r:
+	$(MAKE) h5r
+h5r:
+	wget --no-check-certificate $(H5RURL)
+	unzip master
+	rm -rf h5r master
+	mv h5r-master h5r
+
 clean: x64clean i386clean
 i386clean:
 	rm -rf i386/bin
@@ -21,7 +37,7 @@ x64clean:
 	rm -rf x64/include
 	rm -rf x64/share
 
-all: x64 i386
+all: h5r_1.4.9.zip
 
 x64: \
 	x64hdf5
@@ -73,7 +89,7 @@ i386/lib/libsz.a:
 x64hdf5: x64szlib x64zlib
 	@$(MAKE) x64/lib/libhdf5.a
 x64/lib/libhdf5.a:
-	cd hdf5-1.8.13 && \
+	@cd hdf5-1.8.13 && \
         (test -f Makefile && $(MAKE) distclean || true) && \
         env CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB" \
               LIBS="-lws2_32" \
@@ -81,17 +97,17 @@ x64/lib/libhdf5.a:
                CXX="g++ -m64" \
                 FC="gfortran -m64" \
                F77="gfortran -m64" \
-       ./configure \
-               --prefix=$$HOME/Works/extemporaneousb/x64 \
-            --with-zlib=$$HOME/Works/extemporaneousb/x64 \
-           --with-szlib=$$HOME/Works/extemporaneousb/x64 \
-           --disable-shared --enable-cxx --enable-fortran \
-           --enable-static-exec; \
-       $(MAKE) install
+        ./configure \
+                --prefix=$$HOME/Works/extemporaneousb/x64 \
+             --with-zlib=$$HOME/Works/extemporaneousb/x64 \
+            --with-szlib=$$HOME/Works/extemporaneousb/x64 \
+            --disable-shared --enable-cxx --enable-fortran \
+            --enable-static-exec; \
+        $(MAKE) install
 i386hdf5: i386szlib i386zlib
 	@$(MAKE) i386/lib/libhdf5.a
 i386/lib/libhdf5.a:
-	cd hdf5-1.8.13 && \
+	@cd hdf5-1.8.13 && \
         (test -f Makefile && $(MAKE) distclean || true) && \
         env CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB" \
               LIBS="-lws2_32" \
@@ -100,27 +116,20 @@ i386/lib/libhdf5.a:
                 FC="gfortran -m32" \
                F77="gfortran -m32" \
         ./configure \
-               --prefix=$$HOME/Works/extemporaneousb/i386 \
-            --with-zlib=$$HOME/Works/extemporaneousb/i386 \
-           --with-szlib=$$HOME/Works/extemporaneousb/i386 \
-           --disable-shared --enable-cxx --enable-fortran \
-           --enable-static-exec; \
+                --prefix=$$HOME/Works/extemporaneousb/i386 \
+             --with-zlib=$$HOME/Works/extemporaneousb/i386 \
+            --with-szlib=$$HOME/Works/extemporaneousb/i386 \
+            --disable-shared --enable-cxx --enable-fortran \
+            --enable-static-exec; \
         $(MAKE) install
 
-fetchh5r:
-	$(MAKE) h5r
-h5r:
-	wget --no-check-certificate $(H5RURL)
-	unzip master
-	rm -f master
-	mv h5r-master h5r
 build-h5r: fetchh5r x64hdf5 i386hdf5
 	@$(MAKE) h5r_1.4.9.zip
 h5r_1.4.9.zip:
-	rm -rf h5r/windows/i386
-	rm -rf h5r/windows/x64
-	cp -a x64 i386 h5r/windows/
-	mkdir -p $$HOME/Works/extemporaneousb/R
-	export PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
-        R_LIBS="$$HOME/Works/extemporaneousb/R" && \
-        R CMD INSTALL --force-biarch --build h5r	
+	@rm -rf h5r/windows/i386
+	@rm -rf h5r/windows/x64
+	@cp -a x64 i386 h5r/windows/
+	@mkdir -p $$HOME/Works/extemporaneousb/R
+	@export   PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
+                R_LIBS="$$HOME/Works/extemporaneousb/R" && \
+        R CMD INSTALL --force-biarch --build h5r
