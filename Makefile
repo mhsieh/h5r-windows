@@ -13,11 +13,9 @@ x64clean:
 all: x64 i386
 
 x64: \
-	x64zlib \
-	x64szlib
+	x64hdf5
 i386: \
-	i386zlib \
-	i386szlib
+	i386hdf5
 
 x64zlib:
 	@$(MAKE) x64/lib/libz.a
@@ -61,7 +59,27 @@ i386/lib/libsz.a:
             --prefix=$$HOME/Works/extemporaneousb/i386 --disable-shared && \
         $(MAKE) install
 
-i386hdf5:
+x64hdf5: x64szlib x64zlib
+	@$(MAKE) x64/lib/libhdf5.a
+x64/lib/libhdf5.a:
+	cd hdf5-1.8.13 && \
+        (test -f Makefile && $(MAKE) distclean || true) && \
+        env CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB" \
+              LIBS="-lws2_32" \
+                CC="gcc -m64" \
+               CXX="g++ -m64" \
+                FC="gfortran -m64" \
+               F77="gfortran -m64" \
+       ./configure \
+               --prefix=$$HOME/Works/extemporaneousb/x64 \
+            --with-zlib=$$HOME/Works/extemporaneousb/x64 \
+           --with-szlib=$$HOME/Works/extemporaneousb/x64 \
+           --disable-shared --enable-cxx --enable-fortran \
+           --enable-static-exec; \
+       $(MAKE) install
+i386hdf5: i386szlib i386zlib
+	@$(MAKE) i386/lib/libhdf5.a
+i386/lib/libhdf5.a:
 	cd hdf5-1.8.13 && \
         (test -f Makefile && $(MAKE) distclean || true) && \
         env CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB" \
@@ -76,4 +94,4 @@ i386hdf5:
            --with-szlib=$$HOME/Works/extemporaneousb/i386 \
            --disable-shared --enable-cxx --enable-fortran \
            --enable-static-exec; \
-       $(MAKE)
+       $(MAKE) install
