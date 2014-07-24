@@ -40,11 +40,6 @@ x64clean:
 
 all: h5r_1.4.9.zip
 
-x64: \
-	x64hdf5
-i386: \
-	i386hdf5
-
 x64zlib:
 	@$(MAKE) x64/lib/libz.a
 x64/lib/libz.a:
