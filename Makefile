@@ -1,10 +1,13 @@
-#
 RTOOLSURL = "http://cran.r-project.org/bin/windows/Rtools/Rtools31.exe"
 HDF5URL   = "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz"
 ZLIBURL   = "http://zlib.net/zlib-1.2.8.tar.gz"
 SZLIBURL  = "http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz"
 H5RURL    = "https://github.com/extemporaneousb/h5r/archive/master.zip"
+H5RURL    = "https://github.com/rforge/h5r/archive/master.zip"
 R-PBH5URL = "https://github.com/PacificBiosciences/R-pbh5/archive/master.zip"
+
+nothing:
+	@echo nothing
 
 clean: x64clean i386clean
 i386clean:
@@ -96,10 +99,28 @@ i386/lib/libhdf5.a:
                CXX="g++ -m32" \
                 FC="gfortran -m32" \
                F77="gfortran -m32" \
-       ./configure \
+        ./configure \
                --prefix=$$HOME/Works/extemporaneousb/i386 \
             --with-zlib=$$HOME/Works/extemporaneousb/i386 \
            --with-szlib=$$HOME/Works/extemporaneousb/i386 \
            --disable-shared --enable-cxx --enable-fortran \
            --enable-static-exec; \
-       $(MAKE) install
+        $(MAKE) install
+
+fetchh5r:
+	$(MAKE) h5r
+h5r:
+	wget --no-check-certificate $(H5RURL)
+	unzip master
+	rm -f master
+	mv h5r-master h5r
+build-h5r: fetchh5r x64hdf5 i386hdf5
+	@$(MAKE) h5r_1.4.9.zip
+h5r_1.4.9.zip:
+	rm -rf h5r/windows/i386
+	rm -rf h5r/windows/x64
+	cp -a x64 i386 h5r/windows/
+	mkdir -p $$HOME/Works/extemporaneousb/R
+	export PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
+        R_LIBS="$$HOME/Works/extemporaneousb/R" && \
+        R CMD INSTALL --force-biarch --build h5r	
