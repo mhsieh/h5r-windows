@@ -1,3 +1,4 @@
+SHELL     = /bin/bash
 RTOOLSURL = "http://cran.r-project.org/bin/windows/Rtools/Rtools31.exe"
 HDF5URL   = "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz"
 ZLIBURL   = "http://zlib.net/zlib-1.2.8.tar.gz"
@@ -48,9 +49,9 @@ x64zlib:
 	@$(MAKE) x64/lib/libz.a
 x64/lib/libz.a:
 	@cd zlib-1.2.8; \
-        env  BINARY_PATH=$$HOME/Works/extemporaneousb/x64/bin \
-            INCLUDE_PATH=$$HOME/Works/extemporaneousb/x64/include \
-            LIBRARY_PATH=$$HOME/Works/extemporaneousb/x64/lib \
+        env  BINARY_PATH=$$PWD/x64/bin \
+            INCLUDE_PATH=$$PWD/x64/include \
+            LIBRARY_PATH=$$PWD/x64/lib \
                       CC="gcc -m64" \
                       RC="windres -F pe-x86-64" \
         $(MAKE) -f win32/Makefile.gcc clean install
@@ -58,9 +59,9 @@ i386zlib:
 	@$(MAKE) i386/lib/libz.a
 i386/lib/libz.a:
 	@cd zlib-1.2.8; \
-        env  BINARY_PATH=$$HOME/Works/extemporaneousb/i386/bin \
-            INCLUDE_PATH=$$HOME/Works/extemporaneousb/i386/include \
-            LIBRARY_PATH=$$HOME/Works/extemporaneousb/i386/lib \
+        env  BINARY_PATH=$$PWD/i386/bin \
+            INCLUDE_PATH=$$PWD/i386/include \
+            LIBRARY_PATH=$$PWD/i386/lib \
                       CC="gcc -m32" \
                       RC="windres -F pe-i386" \
         $(MAKE) -f win32/Makefile.gcc clean install
@@ -73,7 +74,7 @@ x64/lib/libsz.a:
         env  CC="gcc -m64" \
             CXX="g++ -m64" \
             F77="gfortran -m64" ./configure \
-            --prefix=$$HOME/Works/extemporaneousb/x64 --disable-shared && \
+            --prefix=$$PWD/x64 --disable-shared && \
         $(MAKE) install
 i386szlib:
 	@$(MAKE) i386/lib/libsz.a
@@ -83,7 +84,7 @@ i386/lib/libsz.a:
         env  CC="gcc -m32" \
             CXX="g++ -m32" \
             F77="gfortran -m32" ./configure \
-            --prefix=$$HOME/Works/extemporaneousb/i386 --disable-shared && \
+            --prefix=$$PWD/i386 --disable-shared && \
         $(MAKE) install
 
 x64hdf5: x64szlib x64zlib
@@ -98,9 +99,9 @@ x64/lib/libhdf5.a:
                 FC="gfortran -m64" \
                F77="gfortran -m64" \
         ./configure \
-                --prefix=$$HOME/Works/extemporaneousb/x64 \
-             --with-zlib=$$HOME/Works/extemporaneousb/x64 \
-            --with-szlib=$$HOME/Works/extemporaneousb/x64 \
+                --prefix=$$PWD/x64 \
+             --with-zlib=$$PWD/x64 \
+            --with-szlib=$$PWD/x64 \
             --disable-shared --enable-cxx --enable-fortran \
             --enable-static-exec; \
         $(MAKE) install
@@ -116,9 +117,9 @@ i386/lib/libhdf5.a:
                 FC="gfortran -m32" \
                F77="gfortran -m32" \
         ./configure \
-                --prefix=$$HOME/Works/extemporaneousb/i386 \
-             --with-zlib=$$HOME/Works/extemporaneousb/i386 \
-            --with-szlib=$$HOME/Works/extemporaneousb/i386 \
+                --prefix=$$PWD/i386 \
+             --with-zlib=$$PWD/i386 \
+            --with-szlib=$$PWD/i386 \
             --disable-shared --enable-cxx --enable-fortran \
             --enable-static-exec; \
         $(MAKE) install
@@ -129,7 +130,7 @@ h5r_1.4.9.zip:
 	@rm -rf h5r/windows/i386
 	@rm -rf h5r/windows/x64
 	@cp -a x64 i386 h5r/windows/
-	@mkdir -p $$HOME/Works/extemporaneousb/R
+	@mkdir -p $$PWD/R
 	@export   PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
-                R_LIBS="$$HOME/Works/extemporaneousb/R" && \
+                R_LIBS="$$PWD/R" && \
         R CMD INSTALL --force-biarch --build h5r
