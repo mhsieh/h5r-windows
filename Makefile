@@ -148,13 +148,13 @@ i386/lib/libhdf5.a:
             --enable-static-exec; \
         $(MAKE) install
 
-build-h5r: fetchh5r x64hdf5 i386hdf5
-	@$(MAKE) h5r_1.4.9.zip
-h5r_1.4.9.zip:
-	@rm -rf h5r/windows/i386
-	@rm -rf h5r/windows/x64
-	@cp -a x64 i386 h5r/windows/
-	@mkdir -p $$PWD/R
-	@export   PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
-                R_LIBS="$$PWD/R" && \
-        R CMD INSTALL --force-biarch --build h5r
+#build-h5r: fetchh5r x64hdf5 i386hdf5
+#	@$(MAKE) h5r_1.4.9.zip
+#h5r_1.4.9.zip:
+#	@rm -rf h5r/windows/i386
+#	@rm -rf h5r/windows/x64
+#	@cp -a x64 i386 h5r/windows/
+#	@mkdir -p $$PWD/R
+#	@export   PATH="/c/Program Files/R/R-3.0.1/bin/x64:/c/Program Files/MiKTeX 2.9/miktex/bin/x64:$$PATH" \
+#                R_LIBS="$$PWD/R" && \
+#        R CMD INSTALL --force-biarch --build h5r
