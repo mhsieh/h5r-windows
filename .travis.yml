@@ -12,8 +12,9 @@ compiler:
 before_install:
   - cat /etc/apt/sources.list
   - ls -al /etc/apt/sources.list.d
+  - lsb_release -a
   - sudo apt-get update -qq
-  - sudo apt-get install -qq mingw-w64 make
+  - sudo apt-get install -qq mingw-w64
   - sudo apt-get install -qq g++-mingw-w64-x86-64
   - sudo apt-get install -qq g++-mingw-w64-i686
   - sudo apt-get install -qq gfortran-mingw-w64-x86-64
