@@ -14,12 +14,15 @@ before_install:
 #  - ls -al /etc/apt/sources.list.d
 #  - lsb_release -a
   - sudo apt-get update -qq
+  - sudo apt-get install binutils-mingw-w64-x86-64
   - sudo apt-get install binutils-mingw-w64-i686
+  - sudo apt-get install gcc-mingw-w64-x86-64
+  - sudo apt-get install gcc-mingw-w64-i686
+  - sudo apt-get install g++-mingw-w64-x86-64
+  - sudo apt-get install g++-mingw-w64-i686
+  - sudo apt-get install gfortran-mingw-w64-x86-64
+  - sudo apt-get install gfortran-mingw-w64-i686
 #  - sudo apt-get install -qq -y mingw-w64
-#  - sudo apt-get install g++-mingw-w64-x86-64
-#  - sudo apt-get install g++-mingw-w64-i686
-#  - sudo apt-get install gfortran-mingw-w64-x86-64
-#  - sudo apt-get install gfortran-mingw-w64-i686
 #  - sudo apt-get install -qq -y wine
 
 #install:
@@ -35,8 +38,8 @@ before_install:
 #  - tar zxvf hdf5-1.8.13.tar.gz
 #  - "patch -p0 < hdf5-1.8.13.patch"
 
-#script:
-#  - make all
+script:
+  - "echo 'success!'"
 
 #notifications:
 #  email:
