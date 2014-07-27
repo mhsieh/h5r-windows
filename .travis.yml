@@ -45,8 +45,7 @@ install:
 
 script:
   - tree x64 i386
-  - make test
-  - "echo 'success!'"
+  - "make test && echo 'success!'"
 
 #notifications:
 #  email:
