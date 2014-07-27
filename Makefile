@@ -69,7 +69,7 @@ x64:
         $(MAKE) install
 test:
 	@ \
-        $$HOME/mingw64/x64/bin/h5ls.exe \
-            -r $$HOME/mingw64/hdf5-1.8.13/tools/h5repack/testfiles/h5repack_szip.h5 && \
-        $$HOME/mingw64/i386/bin/h5ls.exe \
-            -r $$HOME/mingw64/hdf5-1.8.13/tools/h5repack/testfiles/h5repack_szip.h5
+        $$HOME/x64/bin/h5ls.exe \
+            -r $$HOME/hdf5-1.8.13/tools/h5repack/testfiles/h5repack_szip.h5 && \
+        $$HOME/i386/bin/h5ls.exe \
+            -r $$HOME/hdf5-1.8.13/tools/h5repack/testfiles/h5repack_szip.h5
