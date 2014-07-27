@@ -27,7 +27,8 @@ before_install:
   - sudo apt-get install -qq -y wine
 
 install:
-# borrowed from gdal_coverage
+  - mkdir -p $HOME/.wine/drive_c/windows
+  - chmod -R 775 $HOME/.wine
   - ln -s /usr/lib/gcc/x86_64-w64-mingw32/4.6/libstdc++-6.dll  $HOME/.wine/drive_c/windows
   - ln -s /usr/lib/gcc/x86_64-w64-mingw32/4.6/libgcc_s_sjlj-1.dll  $HOME/.wine/drive_c/windows
 # fetch zlib, szlib, and hdf5
