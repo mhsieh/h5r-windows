@@ -15,7 +15,7 @@ uninstall:
 all: i386 x64
 
 i386:
-	export    CPP="i686-w64-mingw32-cpp"                             \
+	@export   CPP="i686-w64-mingw32-cpp"                             \
                   CXX="i686-w64-mingw32-g++      -m32"                   \
                    CC="i686-w64-mingw32-gcc      -m32"                   \
                    FC="i686-w64-mingw32-gfortran -m32"                   \
@@ -53,7 +53,7 @@ i386:
             --host=i686-w64-mingw32                                   && \
         $(MAKE) install
 x64:
-	export    CPP=x86_64-w64-mingw32-cpp                             \
+	@export   CPP=x86_64-w64-mingw32-cpp                             \
                   CXX="x86_64-w64-mingw32-g++      -m64"                 \
                    CC="x86_64-w64-mingw32-gcc      -m64"                 \
                    FC="x86_64-w64-mingw32-gfortran -m64"                 \
