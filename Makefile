@@ -30,27 +30,30 @@ i386:
         ln -s /usr/lib/gcc/i686-w64-mingw32/4.6/libquadmath-0.dll     && \
         cd $(SRC)/zlib-1.2.8                                          && \
         test -e Makefile && $(MAKE) distclean || true                 && \
-        ./configure --static                                             \
-                    --prefix=$(I386HOME)                              && \
+        ./configure                                                      \
+            --static                                                     \
+            --prefix=$(I386HOME) >> $(SRC)/config.log 2>&1            && \
         $(MAKE) install                                               && \
         cd ../szip-2.1                                                && \
         test -e Makefile && $(MAKE) distclean || true                 && \
-        ./configure --disable-shared                                     \
-                    --prefix=$(I386HOME)                                 \
-                    --host=i686-w64-mingw32                           && \
+        ./configure                                                      \
+            --disable-shared                                             \
+            --prefix=$(I386HOME)                                         \
+            --host=i686-w64-mingw32 >> $(SRC)/config.log 2>&1         && \
         $(MAKE) install                                               && \
         cd ../hdf5-1.8.13                                             && \
         test -e Makefile && $(MAKE) distclean || true                 && \
         CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB"            \
           LIBS="-lws2_32"                                                \
-        ./configure --disable-shared                                     \
+        ./configure                                                      \
+            --disable-shared                                             \
             --enable-cxx                                                 \
             --enable-fortran                                             \
             --enable-static-exec                                         \
                 --prefix=$(I386HOME)                                     \
              --with-zlib=$(I386HOME)                                     \
             --with-szlib=$(I386HOME)                                     \
-            --host=i686-w64-mingw32                                   && \
+            --host=i686-w64-mingw32 >> $(SRC)/config.log 2>&1         && \
         $(MAKE) install
 x64:
 	@export   CPP=x86_64-w64-mingw32-cpp                             \
@@ -68,27 +71,30 @@ x64:
         ln -s /usr/lib/gcc/x86_64-w64-mingw32/4.6/libquadmath-0.dll   && \
         cd $(SRC)/zlib-1.2.8                                          && \
         test -e Makefile && $(MAKE) distclean || true                 && \
-        ./configure --static                                             \
-                    --prefix=$(X64HOME)                               && \
+        ./configure                                                      \
+            --static                                                     \
+            --prefix=$(X64HOME) >> $(SRC)/config.log 2>&1             && \
         $(MAKE) install                                               && \
         cd ../szip-2.1                                                && \
         test -e Makefile && $(MAKE) distclean || true                 && \
-        ./configure --disable-shared                                     \
-                    --prefix=$(X64HOME)                                  \
-                    --host=x86_64-w64-mingw32                         && \
+        ./configure                                                      \
+            --disable-shared                                             \
+            --prefix=$(X64HOME)                                          \
+            --host=x86_64-w64-mingw32 >> $(SRC)/config.log 2>&1       && \
         $(MAKE) install                                               && \
         cd ../hdf5-1.8.13                                             && \
         test -e Makefile && $(MAKE) distclean || true                 && \
         CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB"            \
           LIBS="-lws2_32"                                                \
-        ./configure --disable-shared                                     \
+        ./configure                                                      \
+            --disable-shared                                             \
             --enable-cxx                                                 \
             --enable-fortran                                             \
             --enable-static-exec                                         \
                 --prefix=$(X64HOME)                                      \
              --with-zlib=$(X64HOME)                                      \
             --with-szlib=$(X64HOME)                                      \
-            --host=x86_64-w64-mingw32                                 && \
+            --host=x86_64-w64-mingw32 >> $(SRC)/config.log 2>&1       && \
         $(MAKE) install
 test:
 	@ \
