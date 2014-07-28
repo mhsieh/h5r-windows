@@ -25,30 +25,31 @@ before_install:
   - sudo apt-get install mingw-w64
   - sudo apt-get install mingw-w64-dev
   - sudo apt-get install mingw-w64-tools
-  - sudo apt-get install -qq -y wine
-  - sudo apt-get install tree
-  - "export DISPLAY=:99.0"
-# ( xvfb is already install in travis-ci vms )
-#  - sudo apt-get install xvfb
-#  - Xvfb -nolisten tcp -screen 0 1024x768x24 $DISPLAY > /tmp/xvfb.log &
-  - "sh -e /etc/init.d/xvfb start"
-
+#  - sudo apt-get install -qq -y wine
+#  - sudo apt-get install tree
+#  - "export DISPLAY=:99.0"
+## ( xvfb is already install in travis-ci vms )
+##  - sudo apt-get install xvfb
+##  - Xvfb -nolisten tcp -screen 0 1024x768x24 $DISPLAY > /tmp/xvfb.log &
+#  - "sh -e /etc/init.d/xvfb start"
+#
 install:
-  - mkdir -p $HOME/.wine/drive_c/windows
-  - chmod -R 775 $HOME/.wine
-# fetch zlib, szlib, and hdf5
-  - curl -O http://zlib.net/zlib-1.2.8.tar.gz
-  - tar zxvf zlib-1.2.8.tar.gz
-  - curl -O http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
-  - tar zxvf szip-2.1.tar.gz
-  - curl -O http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz
-  - tar zxvf hdf5-1.8.13.tar.gz
-  - "patch -p0 < hdf5-1.8.13.patch"
-  - make all
-
-script:
-  - tree x64 i386
-  - "make test && echo 'success!'"
+  - make debug
+#  - mkdir -p $HOME/.wine/drive_c/windows
+#  - chmod -R 775 $HOME/.wine
+## fetch zlib, szlib, and hdf5
+#  - curl -O http://zlib.net/zlib-1.2.8.tar.gz
+#  - tar zxvf zlib-1.2.8.tar.gz
+#  - curl -O http://www.hdfgroup.org/ftp/lib-external/szip/2.1/src/szip-2.1.tar.gz
+#  - tar zxvf szip-2.1.tar.gz
+#  - curl -O http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz
+#  - tar zxvf hdf5-1.8.13.tar.gz
+#  - "patch -p0 < hdf5-1.8.13.patch"
+#  - make all
+#
+#script:
+#  - tree x64 i386
+#  - "make test && echo 'success!'"
 
 #notifications:
 #  email:

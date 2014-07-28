@@ -5,6 +5,8 @@ I386HOME := $(SRC)/i386
 debug:
 	@echo X64HOME  = $(X64HOME)
 	@echo I386HOME = $(I386HOME)
+	@ls -l /usr/lib/gcc/i686-w64-mingw32/4.6/
+	@ls -l /usr/lib/gcc/x86_64-w64-mingw32/4.6/
 
 clean: uninstall
 uninstall: 
