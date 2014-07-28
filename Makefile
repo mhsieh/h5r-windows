@@ -44,7 +44,7 @@ i386:
         CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB"            \
           LIBS="-lws2_32"                                                \
         ./configure --disable-shared                                     \
-            --disable-cxx                                                \
+            --enable-cxx                                                 \
             --enable-fortran                                             \
             --enable-static-exec                                         \
                 --prefix=$(I386HOME)                                     \
@@ -82,7 +82,7 @@ x64:
         CFLAGS="-DH5_HAVE_WIN32_API -DH5_BUILT_AS_STATIC_LIB"            \
           LIBS="-lws2_32"                                                \
         ./configure --disable-shared                                     \
-            --disable-cxx                                                \
+            --enable-cxx                                                 \
             --enable-fortran                                             \
             --enable-static-exec                                         \
                 --prefix=$(X64HOME)                                      \
