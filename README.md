@@ -7,9 +7,9 @@ on Travis CI, a hosted continuous integration service.
 
 Information regarding what needs to be done in order to to cross-compile hdf5
 on a linux VM can be found from these files.
-    - .travis.yml
-    - Makefile
-    - hdf5-1.8.13.patch
+  - .travis.yml
+  - Makefile
+  - hdf5-1.8.13.patch
 
 Information egarding how this can also be done on a windows through Rtools can
 be found undeer windows/ folder.
