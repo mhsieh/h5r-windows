@@ -1,3 +1,8 @@
+# THIS IS THE MAKEFILE FOR X86/X64 HDF5 WITH MINGW32/MINGW-W64 UNDER
+# WINDOWS 7+ AND RTOOLS 3.1
+# AUTHOR: Mengjuei Hsieh
+# LICENSE: Public Domain
+
 SHELL     = /bin/bash
 RTOOLSURL = "http://cran.r-project.org/bin/windows/Rtools/Rtools31.exe"
 HDF5URL   = "http://www.hdfgroup.org/ftp/HDF5/current/src/hdf5-1.8.13.tar.gz"
